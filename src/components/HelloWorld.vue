@@ -4,7 +4,7 @@
         <h2>Essential Links</h2>
         <ul>
             <li>
-                <a href="https://vuejs.org" target="_blank"> Core Docs</a>
+                <a href="https://vuejs.org" target="_blank"> 你好</a>
             </li>
             <li>
                 <a href="https://forum.vuejs.org" target="_blank">Forum </a>
@@ -63,6 +63,7 @@
     li {
         display: inline-block;
         margin: 0 10px;
+        font-size: 2rem;
     }
 
     a {
