@@ -11,7 +11,11 @@
         "e2e": "node test/e2e/runner.js",
         "test": "npm run unit && npm run e2e",
         "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-        "build": "node build/build.js"
+        "build": "npm run build:dev",
+        "build:dev": "cross-env NODE_ENV=production env_config=dev node build/build.js",
+        "build:test": "cross-env NODE_ENV=production env_config=test node build/build.js",
+        "build:pre": "cross-env NODE_ENV=production env_config=pre node build/build.js",
+        "build:prod": "cross-env NODE_ENV=production env_config=prod node build/build.js"
     },
     "dependencies": {
         "vue": "^2.5.2",

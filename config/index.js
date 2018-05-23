@@ -54,6 +54,12 @@ module.exports = {
 
     // 构建时用的配置
     build: {
+        // 分环境构建的配置
+        prodEnv: require('./prod.env'),
+        preEnv: require('./pre.env'),
+        testEnv: require('./test.env'),
+        devEnv: require('./dev.env'),
+
         // Template for index.html
         index: path.resolve(__dirname, '../dist/index.html'),
 
