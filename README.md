@@ -74,6 +74,73 @@ ESLint 配置的主要文件:
 
     本项目还安装了 eslint 的插件 eslint-plugin-vue，代码风格基于 vue 插件的推荐风格，但是因为我们使用的代码格式化工具不会将 html 元素的属性自动拆分成多行，所以 eslint-plugin-vue 的推荐风格的规则: vue/max-attributes-per-line，我们使用代码格式化工具格式化后没法满足，所以我们覆盖了规则，让它可以支持在同一行写多个属性
 
+## 分辨率适配问题
+
+本项目使用的默认字体大小为14px，相关设置是在根目录下的index.html文件中
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- ...  -->
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- ...  -->
+  <style>
+    <!-- ...  --> 
+    html {
+      /* 浏览器默认16px 字体基准值设置为14px 14/16=0.875 */
+      font-size: 87.5%;
+      height: 100%
+    }
+    <!-- ...  -->
+    body {
+      <!-- ...  -->
+      font-size: 14px;
+      line-height: 1.5;
+       <!-- ...  -->
+    }
+  </style>
+</head>
+
+<body>
+    <!-- ...  -->
+</body>
+
+</html>
+
+```
+
+另外本项目使用postcss的插件postcss-px2rem，因此虽然我们在项目中使用的都是px单位，但构建完毕后都会使用rem单位，postcss-px2rem插件的相关设置在根目录下的.postcssrc.js文件中:
+
+```javascript
+// https://github.com/michael-ciniawsky/postcss-load-config
+
+module.exports = {
+    "plugins": {
+        "postcss-import": {},
+        "postcss-url": {},
+        // to edit target browsers: use "browserslist" field in package.json
+        "autoprefixer": {},
+        "postcss-px2rem": {
+            baseDpr: 2, // 基于设备的Dpr  
+            threeVersion: false, // 是否生成 @1x, @2x and @3x 三个版本(默认: false)，打开后  
+            remVersion: true, // 是否生成rem版本(默认: true)  
+            remUnit: 14, // rem转换比例 (默认: 75)  
+            remPrecision: 5 // rem保留几位数 (默认: 5)  
+        }
+    }
+}
+```
+
+其中remUnit设置为14的原因:
+> 默认字体大小为14px，这样的设置让postcss-remtopx将px转换为rem单位时，会按公式1rem=14px来计算, 而我们设置的默认字体大小就是14px，按照rem单位的定义就是和默认字体大小等价，这样的话我们在写样式时就可以按照设计图中的px单位来写
+
+但是请注意为手机上的项目写样式时，如果设计图是按手机实际分辨率给的，比如iphone6是750x1334，我们在写样式时需要按手机的逻辑分辨率来写，比如iphone6的逻辑分辨率其实是375x667，所以需要将手机实际分辨率转成逻辑分辨率来写
+
+PC项目写样式时就可以直接按给的分辨率编写
+
+
 ## Build Setup
 
 ```bash
