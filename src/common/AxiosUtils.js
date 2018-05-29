@@ -9,8 +9,13 @@ import {
   login
 } from './LoginUtils'
 
+let mAxios = null
+
 function initVueHttpCompUseAxios() {
-  const mAxios = axios.create({
+  if (mAxios !== null) {
+    return
+  }
+  mAxios = axios.create({
     timeout: 20 * 1000
   })
   mAxios.defaults.baseURL = process.env.API_ROOT
@@ -45,5 +50,6 @@ function initVueHttpCompUseAxios() {
 }
 
 export {
-  initVueHttpCompUseAxios
+  initVueHttpCompUseAxios,
+  mAxios as axios
 }

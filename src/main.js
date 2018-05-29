@@ -3,13 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueCookie from 'vue-cookie'
 import {
   loginIfNeeded
 } from './common/LoginUtils'
 import {
   initVueHttpCompUseAxios
 } from './common/AxiosUtils'
-import VueCookie from 'vue-cookie'
+// import {
+//   configWechatJsSdk
+// } from './common/AxiosUtils'
 
 const eruda = () =>
   import ( /* webpackChunkName: "eruda" */ 'eruda')
@@ -52,5 +55,8 @@ function prepareErudaTool() {
     },
     template: '<App/>'
   })
+
+  // 需要在具体页面去调用 这里只是做演示而已
+  // configWechatJsSdk({'title':'hello'})
 
 }())
