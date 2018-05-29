@@ -141,6 +141,11 @@ module.exports = {
 PC项目写样式时就可以直接按给的分辨率编写
 
 
+## eruda工具
+
+eruda工具方便移动端调试，可点击设置图标打开eruda工具，在移动端也能看日志输出，元素排布，网络请求，非常方便
+
+
 ## Build Setup
 
 ```bash
