@@ -9,9 +9,11 @@ import {
 import {
   initVueHttpCompUseAxios
 } from './common/AxiosUtils'
+import VueCookie from 'vue-cookie'
 
 const eruda = () =>
   import ( /* webpackChunkName: "eruda" */ 'eruda')
+
 
 Vue.config.productionTip = false
 
@@ -30,23 +32,25 @@ function prepareErudaTool() {
   }
 }
 
-prepareErudaTool()
+(function () {
+  prepareErudaTool()
 
-if (loginIfNeeded()) {
-  console.log('need to login, no need to show this site')
-  return
-}
+  Vue.prototype.$cookie = VueCookie
 
-initVueHttpCompUseAxios()
+  if (loginIfNeeded()) {
+    console.log('need to login, no need to show this site')
+    return
+  }
 
-Vue.prototype.$cookie = VueCookie
+  initVueHttpCompUseAxios()
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: {
-    App
-  },
-  template: '<App/>'
-})
+  new Vue({
+    el: '#app',
+    router,
+    components: {
+      App
+    },
+    template: '<App/>'
+  })
+
+}())

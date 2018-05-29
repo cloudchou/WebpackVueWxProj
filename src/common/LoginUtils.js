@@ -1,6 +1,7 @@
+import VueCookie from 'vue-cookie'
 import {
-  VueCookie
-} from 'vue-cookie'
+  isBlank
+} from 'underscore.string'
 
 function getToken() {
   let token = VueCookie.get('XXX_TOKEN') // XXX_TOKEN
@@ -11,7 +12,7 @@ function getToken() {
 
 function loginIfNeeded() {
   let token = getToken()
-  if (isStringEmpty(token)) {
+  if (isBlank(token)) {
     login()
     return true
   }
@@ -24,5 +25,6 @@ function login() {
 
 export {
   loginIfNeeded,
-  getToken
+  getToken,
+  login
 }
