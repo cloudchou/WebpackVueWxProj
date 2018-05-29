@@ -145,6 +145,46 @@ PC项目写样式时就可以直接按给的分辨率编写
 
 eruda工具方便移动端调试，可点击设置图标打开eruda工具，在移动端也能看日志输出，元素排布，网络请求，非常方便
 
+## 脚本cdn加速说明
+
+目前项目中使用的vue,vue-router,axios,weixin-js-sdk等基础组件其实不是由构建出来的站点进行分发，而是直接使用这些基础组件官方的cdn源进行分发
+
+我们需要注意版本匹配:
+
+1.  根目录下index.html引用的基础组件的版本:
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <!-- .... -->
+    <script src="//cdn.bootcss.com/vue/2.5.2/vue.min.js"></script>
+    <script src="//cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+    <script src="//cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    </head>
+    <body>
+    <!-- ... -->
+    </body>
+    </html>
+    ```
+
+2.  根目录下package.json引用的基础组件的版本
+
+    ```json
+    {
+    //...    
+    "dependencies": {
+        "axios": "^0.18.0",
+        "eruda": "^1.4.4",
+        "vue": "^2.5.2",
+        "vue-router": "^3.0.1",
+        "weixin-js-sdk": "^1.3.2"
+    },
+    //...
+    }
+    ```
+
 
 ## Build Setup
 
