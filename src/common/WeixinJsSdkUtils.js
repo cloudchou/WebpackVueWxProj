@@ -1,4 +1,4 @@
-import * as WeixinJSDK from 'weixin-js-sdk'
+import WeixinJSSDK from 'weixin-js-sdk'
 import {
   axios
 } from './AxiosUtils'
@@ -6,12 +6,14 @@ import objectAssign from 'object-assign'
 
 function configWechatJsSdk(shareOptions) {
   setWechatConfigCallback(shareOptions)
+  let currentUrl = location.href.split('#')[0]
+  let api = `/misc/wechat_js_config`
   axios.post(api, {
     currentUrl: currentUrl
   }).then((res) => {
     let data = res.data
     // console.log(res.data)
-    WeixinJSDK.config({
+    WeixinJSSDK.config({
       // {"signature":"744a6780bc4d956246ca1fb98c9b3d4c78616104","appid":"wxa584b91915a4998e","nonceStr":"BMUEqHMigXPun2uK","timestamp":1517661110}
       // debug: false,
       // appId: 'wxa584b91915a4998e',
@@ -32,8 +34,6 @@ function configWechatJsSdk(shareOptions) {
 }
 
 function setWechatConfigCallback(shareOptions) {
-  let currentUrl = location.href.split('#')[0]
-  let api = `/misc/wechat_js_config`
   let ops = {
     title: 'default title',
     link: location.href,
@@ -47,12 +47,12 @@ function setWechatConfigCallback(shareOptions) {
     }
   }
   objectAssign(ops, shareOptions)
-  WeixinJSDK.ready(() => {
+  WeixinJSSDK.ready(() => {
     console.log('wechat config ready')
-    WeixinJSDK.onMenuShareTimeline(options)
-    WeixinJSDK.onMenuShareAppMessage(options)
+    WeixinJSSDK.onMenuShareTimeline(ops)
+    WeixinJSSDK.onMenuShareAppMessage(ops)
   })
-  WeixinJSDK.error(function (res) {
+  WeixinJSSDK.error(function (res) {
     console.log('wechat config error')
     // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
     console.log(`error : ${JSON.stringify(res)}`)

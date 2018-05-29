@@ -4,6 +4,7 @@
 
 import axios from 'axios'
 import VueCookie from 'vue-cookie'
+import { isBlank } from 'underscore.string'
 import {
   getToken,
   login
@@ -22,7 +23,7 @@ function initVueHttpCompUseAxios() {
   mAxios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8' // 配置请求头  
   mAxios.interceptors.request.use(config => {
     let token = getToken()
-    if (!isStringEmpty(token)) {
+    if (!isBlank(token)) {
       config.headers.Authorization = `token ${token}`
     }
     return config
