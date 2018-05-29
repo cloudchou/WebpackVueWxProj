@@ -47,7 +47,7 @@ function initVueHttpCompUseAxios() {
     }
     return Promise.reject(error)
   })
-  Vue.prototype.$http = axios
+  Vue.prototype.$http = mAxios
 }
 
 export {
