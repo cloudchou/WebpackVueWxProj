@@ -3,14 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import {
+  loginIfNeeded
+} from './common/LoginUtils'
+import {
+  initVueHttpCompUseAxios
+} from './common/AxiosUtils'
+
 const eruda = () =>
   import ( /* webpackChunkName: "eruda" */ 'eruda')
 
 Vue.config.productionTip = false
-
-
-// import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-chalk/index.css'
 
 function prepareErudaTool() {
   if (process.env.EVN_CONFIG !== 'prod') {
@@ -27,6 +30,17 @@ function prepareErudaTool() {
   }
 }
 
+prepareErudaTool()
+
+if (loginIfNeeded()) {
+  console.log('need to login, no need to show this site')
+  return
+}
+
+initVueHttpCompUseAxios()
+
+Vue.prototype.$cookie = VueCookie
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -36,5 +50,3 @@ new Vue({
   },
   template: '<App/>'
 })
-
-prepareErudaTool()
