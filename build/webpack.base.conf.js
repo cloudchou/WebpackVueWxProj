@@ -92,6 +92,7 @@ module.exports = {
   externals: {
     'vue': 'Vue',
     'vue-router': 'VueRouter',
-    'axios': 'axios'
+    'axios': 'axios',
+    'weixin-js-sdk': 'weixin-js-sdk'
   }
 }
